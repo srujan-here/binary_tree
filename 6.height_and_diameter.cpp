@@ -12,11 +12,26 @@ struct node{
     }
 };
 int height(node* t){
-    if(t==NULL) return 0;
-    node* lt=t->left;
-    node* rt=t->right;
+    if(t==NULL) 
+    return 0;
+    int lt=height(t->left);
+    int rt=height(t->right);
 
-    return max(height(lt),height(rt))+1;
+    return max(lt,rt)+1;
+
+}
+int diameter(node* t){
+    if(t==NULL) 
+    return 0;
+    int lt=height(t->left);
+    int rt=height(t->right);
+    int curdia=lt+rt+1;
+    int ltdia=diameter(t->left);
+    int rtdia=diameter(t->right);
+
+    return max(curdia,max(ltdia,rtdia));
+
+
 }
 int main(){
     struct node *root=new node(1);
@@ -27,5 +42,6 @@ int main(){
     root->right->left = new node(6);
     root->right->right = new node(7);
     cout<<height(root)<<endl;
+    cout<<diameter(root)<<endl;
 
 }
