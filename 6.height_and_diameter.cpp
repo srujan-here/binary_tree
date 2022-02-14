@@ -20,7 +20,7 @@ int height(node* t){
     return max(lt,rt)+1;
 
 }
-int diameter(node* t){
+int diameter(node* t){       //O(n*n)
     if(t==NULL) 
     return 0;
     int lt=height(t->left);
@@ -33,6 +33,27 @@ int diameter(node* t){
 
 
 }
+
+//finding diameter in  O(n)
+
+int diameter2(node *t,int* h){
+if(t==NULL) {
+    *h=0;
+    return 0;
+}
+int lh=0,rh=0;
+int ld=diameter2(t->left,&lh);
+int rd=diameter2(t->right,&rh);
+int curd=lh+rh+1;
+*h=max(lh,rh)+1;
+
+
+
+return max(curd,max(ld,rd));
+
+}
+
+
 int main(){
     struct node *root=new node(1);
     root->left = new node(2);
@@ -42,6 +63,7 @@ int main(){
     root->right->left = new node(6);
     root->right->right = new node(7);
     cout<<height(root)<<endl;
-    cout<<diameter(root)<<endl;
+    int heig=0;
+    cout<<diameter2(root,&heig)<<endl;
 
 }
